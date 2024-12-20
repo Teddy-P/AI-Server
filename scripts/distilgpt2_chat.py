@@ -131,17 +131,29 @@ def main():
 
             print("AI: " + response)
 
-            rating = input("Rate this response (1-5): ")
-            while not rating.isdigit() or not (1 <= int(rating) <= 5):
-                rating = input("Please enter a valid rating (1-5): ")
+            # Define feedback options
+            feedback_options = {
+                "1": "Too vague",
+                "2": "Inaccurate", 
+                "3": "Irrelevant",
+                "4": "Helpful"
+            }
 
-            correction = input("Provide a correction (or press Enter to skip): ").strip()
+            # Display feedback options
+            print("\nProvide feedback:")
+            for key, value in feedback_options.items():
+                print(f"{key}: {value}")
 
+            # Get user feedback
+            rating = input("Choose one of the options (1-4): ")
+            while not rating in feedback_options:
+                rating = input("Please enter a valid option (1-4): ")
+
+            # Store the feedback in chat_data
             chat_data.append({
                 "user": user_input,
                 "ai": response,
-                "rating": int(rating),
-                "correction": correction
+                "feedback": feedback_options[rating]
             })
 
         except Exception as e:
