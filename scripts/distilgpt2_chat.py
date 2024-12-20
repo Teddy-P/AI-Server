@@ -22,7 +22,7 @@ print(f"Loaded model: {model_name}")
 
 
 # Set device (GPU if available, else CPU)
-device = torch.device("cuda" if torch.cuda.is_available() else "cpu")
+device = torch.device("cpu")
 model = model.to(device)
 
 # Initialize chat history
@@ -170,10 +170,6 @@ while True:
     except Exception as e:
         print("AI: I'm sorry, I couldn't process that. Could you try rephrasing?")
         print(f"Debugging info: {str(e)}")
-
-# Save chat log at the end of the session
-if chat_data:
-    save_chat_log(chat_data)
-
-# Optionally convert logs to a dataset
-convert_logs_to_dataset()
+  # Save chat log at the end of the session
+  if chat_data:
+      save_chat_log(chat_data)
