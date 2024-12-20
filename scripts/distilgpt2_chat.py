@@ -99,8 +99,7 @@ while True:
     try:
         if any(greeting in user_input.lower() for greeting in greetings):
             response = "Hello! How can I assist you today?"
-        # Handle system-related queries
-        if re.search(r'\btime\b', user_input.lower()):
+        elif re.search(r'\btime\b', user_input.lower()):
             response = f"The current time is {get_current_time()}."
         elif re.search(r'\bdate\b', user_input.lower()):
             response = f"Today's date is {get_current_date()}."
@@ -133,8 +132,7 @@ while True:
                 max_history_length = max_tokens - 150
                 if bot_input_ids.shape[-1] > max_history_length:
                     bot_input_ids = bot_input_ids[:, -max_history_length:]
-                # Adjust the attention mask for the concatenated input
-                attention_mask = torch.cat([torch.ones_like(chat_history_ids), attention_mask], dim=-1).to(device)
+                    attention_mask = attention_mask[:, -max_history_length:]
 
             else:
                 bot_input_ids = new_user_input_ids
